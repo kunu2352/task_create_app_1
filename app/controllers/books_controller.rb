@@ -1,32 +1,48 @@
 class BooksController < ApplicationController
-  def new
-    @books = Book.new
-  end
+  
   def create
+    @bookers = Book.all
     @books = Book.new(book_params)
     if @books.save
-      flash[:notice] = "投稿に成功しました"
+      flash[:notice] = "Book was successfully created."
       redirect_to book_path(@books.id)
     else
-      flash.now[:aleart] = "投稿に失敗しました"
       
-      render :new
+      render :index
     end
   end
 
   def show
+    @book = Book.find(params[:id]) 
   end
 
   def index
-    
     @bookers = Book.all
     @books = Book.new
   end
   
 
   def edit
+    @book = Book.find(params[:id])
   end
 
+  
+  def update
+    book = Book.find(params[:id])
+    if book.update(book_params)
+      flash[:notice] = "Book was successfully updated."
+      redirect_to book_path(book.id)
+    else
+      render :edit
+    end
+  end
+  
+  def destroy
+    book = Book.find(params[:id])
+    book.destroy
+    redirect_to books_path
+  end
+  
 private
   
   def book_params
