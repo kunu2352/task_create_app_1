@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'tops/top'
+  root to: "tops#top"
   
   resources :books, except: :new
   #resources :photos, except: :destroy
