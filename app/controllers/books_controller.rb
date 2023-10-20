@@ -10,6 +10,7 @@ class BooksController < ApplicationController
       @bookers = Book.all
       render :index
     end
+    
   end
 
   def show
@@ -17,7 +18,7 @@ class BooksController < ApplicationController
   end
 
   def index
-    @bookers = Book.all
+    @bookers = Book.all.order("title")
     @books = Book.new
   end
   
